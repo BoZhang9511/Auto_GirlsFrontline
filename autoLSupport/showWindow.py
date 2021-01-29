@@ -1,5 +1,0 @@
-from autoLSupport import *
-
-showWindow()
-
-
