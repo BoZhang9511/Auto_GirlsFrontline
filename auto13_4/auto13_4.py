@@ -725,7 +725,7 @@ if __name__ == "__main__":
     firstCombat = True#启动时会给一队单独补给并重开
     failCount = 0
     combatPause = False
-    teamFlag = True#Flag为True时选第二只，为False时选第一只
+    teamFlag = False#Flag为True时选第二只，为False时选第一只
 
     while True:
         if isInMap():
@@ -733,7 +733,7 @@ if __name__ == "__main__":
             failCount = 0
             if firstCombat:
                 firstCombat = False
-                teamFlag = True
+                #teamFlag = True
                 if not combatPrepare():
                     closeGame()
                 continue
@@ -766,7 +766,7 @@ if __name__ == "__main__":
                 closeGame()
                 continue
             combatCount += 1
-            teamFlag = (not teamFlag)
+            #teamFlag = (not teamFlag)
             currentTime = datetime.datetime.now()
             runtime = currentTime - startTime
             logger.debug('已运行：'+str(runtime)+'  13-4轮次：'+str(combatCount))
@@ -828,6 +828,3 @@ if __name__ == "__main__":
                 closeGame()
             else:
                 time.sleep(5)
-                
-            
-            
