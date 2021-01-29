@@ -1,0 +1,8 @@
+2021-01-29 10:26:04,833 - root - DEBUG - STATE： 返回作战界面
+2021-01-29 10:26:04,833 - root - DEBUG - ACTION: 前往作战菜单-战斗中断
+2021-01-29 10:26:09,946 - root - DEBUG - ACTION: 前往8-1n选择界面
+2021-01-29 10:26:19,109 - root - DEBUG - ACTION: 终止8-1n
+2021-01-29 10:26:26,667 - root - DEBUG - STATE： 8-1n界面
+2021-01-29 10:26:26,667 - root - DEBUG - ACTION: 启动8-1n
+2021-01-29 10:26:34,932 - root - DEBUG - STATE：进入地图
+2021-01-29 10:26:34,932 - root - DEBUG - STATE: 战前整备
