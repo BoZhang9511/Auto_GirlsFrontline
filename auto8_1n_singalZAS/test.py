@@ -1,4 +1,4 @@
-from auto8_1n_singalZAS import *
+from auto8_1n import *
 
 time.sleep(0.5)
 img = getImage(COMBAT_ON_CLICK_BOX)
