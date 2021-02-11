@@ -1,7 +1,7 @@
 from auto8_1n_singalZAS import *
 
 time.sleep(0.5)
-img = getImage(COMBAT_ON_CLICK_BOX)
+img = getImage(MAIN_MENU_IMAGE_BOX)
 img.show()
 time.sleep(1)
 
