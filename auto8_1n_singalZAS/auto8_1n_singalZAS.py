@@ -25,6 +25,7 @@ from skimage.metrics import structural_similarity
 
 #=================截图比对区域=================#
 IMAGE_PATH = 'initial_IMG/'#读取截图的路径
+FIRST_LOGIN_IMAGE_BOX = [0.60,0.58,0.75,0.65]#每日第一次登录时那个确认窗口判断区域
 MAIN_MENU_IMAGE_BOX = [0.65,0.50,0.75,0.60]#主界面判断区域                       
 L_SUPPORT_IMAGE_BOX = [0.05,0.30,0.18,0.39]#后勤完成界面判断区域                
 COMBAT_MENU_IMAGE_BOX = [0.05,0.70,0.12,0.80]#战斗菜单界面判断区域          
@@ -149,6 +150,10 @@ CLOSE_GAME_CLICK_BOX = [0.56,0.02,0.57,0.04]
 
 #关闭作战断开提醒
 CLOSE_TIP_CLICK_BOX = [0.45,0.62,0.55,0.67]
+
+#每日第一次登录的确认
+CHECK_INFORMATION_CLICK_BOX = [0.26,0.61,0.27,0.63]#勾选今日不在弹出
+CONFIRM_INFORMATION_CLICK_BOX = [0.65,0.60,0.72,0.63]#点击确认
 
 #=============================================#
 #                                             #
@@ -275,6 +280,13 @@ def imageCompare(img1,img2):
 #                 高级功能函数                 #
 #                                             #
 #=============================================#
+
+#判断是否是每日第一次登录的确认界面
+def isFirstLogin():
+    initImage = cv2.imread(IMAGE_PATH+"first_login.png")
+    capImage  = getImage(FIRST_LOGIN_IMAGE_BOX)
+    capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
+    return imageCompare(initImage,capImage)  
     
 #判断是否计划结束
 def isPlanFinished(doubleCheck = True):
@@ -729,6 +741,10 @@ def closeTip():
 def closeGame():
     mouseClick(CLOSE_GAME_CLICK_BOX,5,5)
 
+#确认每日第一次登录的公告
+def confirmAnnouncement():
+    mouseClick(CHECK_INFORMATION_CLICK_BOX,2,2)
+    mouseClick(CONFIRM_INFORMATION_CLICK_BOX,2,2)
 
 #=============================================#
 #                                             #
@@ -847,6 +863,11 @@ if __name__ == "__main__":
             failCount = 0
             startGame()
             continue
+        elif isFirstLogin():
+            logger.debug("STATE：公告确认")
+            failCount = 0
+            confirmAnnouncement()
+            continue           
         else:#不知道在哪
             logger.debug("ERROR： 当前状态未知!")
             failCount += 1

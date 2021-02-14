@@ -315,12 +315,17 @@ if __name__ == "__main__":
             confirmAnnouncement()
             continue
         else:#有的时候卡了或者是怎么样了，直接关了重启
-            logger.debug("当前状态未知")
+            logger.debug("ERROR： 当前状态未知!")
             failCount += 1
-            if failCount == 3:
+            if failCount == 4:
+                mouseClick([0.3,0.45,0.4,0.55],2,3)
+            if failCount >= 5:
+                img = getImage([0,0,1,1])
+                img.save("errorRecord/"+str(combatCount)+".png")
+                logger.debug("无法确定当前状态,关闭重启！")
                 closeGame()
             else:
-                time.sleep(10)
+                time.sleep(5)
             continue
         hideWindow()#隐藏窗口，这样你就可以同时做其他事了
         wait(300,360)
