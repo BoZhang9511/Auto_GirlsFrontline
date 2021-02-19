@@ -631,15 +631,32 @@ def supply():
     wait(0.3,0.4)
     
     mouseClick(AIRPORT_2_CLICK_BOX,1,2)#点击一机场
-    mouseClick(TEAM_SET_CLICK_BOX,1,2)#放置队伍
+    logger.debug('点击一机场')
+    checkCount = 0
+    while not isSetTeam() and checkCount < 20:
+        wait(0.3,0.4)
+        checkCount += 1
+    if checkCount >= 20:
+        logger.debug('Error:20')
+        return False
+    while isSetTeam():
+        logger.debug('放置队伍')
+        mouseClick(TEAM_SET_CLICK_BOX,1,2)#放置队伍
+        wait(0.3, 0.4)
     mouseClick(AIRPORT_2_CLICK_BOX,0.5,1)#点击队伍两次
+    logger.debug('点击队伍两次')
     mouseClick(AIRPORT_2_CLICK_BOX,1,2)
+    logger.debug('点击队伍两次')
     mouseClick(SUPPLY_CLICK_BOX,1,2)#补给
+    logger.debug('补给')
+    
     mouseClick(AIRPORT_2_CLICK_BOX,1.5,2)
+    logger.debug('再次撤离')
     mouseClick(WITHDRAW_STEP1_CLICK_BOX,1,2)#再次撤离
     mouseClick(WITHDRAW_STEP2_CLICK_BOX,1,2)
     pass
     mouseClick(AIRPORT_2_CLICK_BOX,1,2)
+    logger.debug('队伍编成')
     mouseClick(CHANGE_FORCE_STEP1_CLICK_BOX,0,0)#队伍编成
     checkCount = 0
     while not isFormTeam() and checkCount < 20:

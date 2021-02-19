@@ -321,7 +321,7 @@ if __name__ == "__main__":
                 mouseClick([0.3,0.45,0.4,0.55],2,3)
             if failCount >= 5:
                 img = getImage([0,0,1,1])
-                img.save("errorRecord/"+str(combatCount)+".png")
+                img.save("errorRecord/"+str(failCount)+".png")
                 logger.debug("无法确定当前状态,关闭重启！")
                 closeGame()
             else:
