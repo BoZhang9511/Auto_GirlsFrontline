@@ -1,7 +1,7 @@
 from auto13_4 import *
 
 time.sleep(0.5)
-img = getImage(NAVIGATE_FACTORY_CLICK_BOX)
+img = getImage(MAIN_MENU_IMAGE_BOX)
 img.show()
 time.sleep(1)
 

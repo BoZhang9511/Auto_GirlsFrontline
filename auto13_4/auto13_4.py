@@ -26,7 +26,7 @@ from skimage.metrics import structural_similarity
 #=================截图比对区域=================#
 IMAGE_PATH = 'initial_IMG/'#读取截图的路径
 FIRST_LOGIN_IMAGE_BOX = [0.60,0.58,0.75,0.65]#每日第一次登录时那个确认窗口判断区域
-MAIN_MENU_IMAGE_BOX =[0.65,0.50,0.75,0.60]#主界面判断区域                       
+MAIN_MENU_IMAGE_BOX =[0.65,0.50,0.75,0.58]#主界面判断区域                       
 L_SUPPORT_IMAGE_BOX = [0.05,0.30,0.18,0.39]#后勤完成界面判断区域                
 COMBAT_MENU_IMAGE_BOX = [0.05,0.70,0.12,0.80]#战斗菜单界面判断区域          
 CHOOSE_13_4_IMAGE_BOX = [0.50,0.67,0.60,0.75]#13-4菜单界面判断区域                        
@@ -47,7 +47,7 @@ RETURN_COMBAT_IMAGE_BOX = [0.75,0.63,0.90,0.70]#回到作战界面判断区域
 #=================点击拖动区域=================#
 
 #从主菜单进入作战选择界面
-COMBAT_CLICK_BOX = [0.65,0.50,0.75,0.60]#在主菜单点击战斗（无作战进行中情况）
+COMBAT_CLICK_BOX = [0.65,0.50,0.75,0.58]#在主菜单点击战斗（无作战进行中情况）
 COMBAT_BREAK_CLICK_BOX = [0.65,0.50,0.75,0.58]#在主菜单点击战斗（作战中断情况）
 
 #从作战选择界面进入13-4界面
@@ -137,7 +137,7 @@ POWERUP_FINISH_CLICK_BOX = [0.46,0.64,0.54,0.66]#完成强化
 NAVIGATE_BAR_CLICK_BOX = [0.15,0.10,0.18,0.15]#打开导航条
 NAVIGATE_BAR_DRAG_BOX = [0.10,0.28,0.17,0.32]#向右拖导航条
 NAVIGATE_COMBAT_CLICK_BOX = [0.10,0.28,0.12,0.32]#跳转至作战菜单
-NAVIGATE_FACTORY_CLICK_BOX = [0.38,0.28,0.40,0.32]#跳转至工厂菜单
+NAVIGATE_FACTORY_CLICK_BOX = [0.32,0.28,0.34,0.32]#跳转至工厂菜单
 NAVIGATE_MAIN_MENU_CLICK_BOX = [0.20,0.18,0.28,0.20]#跳转至主菜单
 
 #收后勤支援
@@ -779,8 +779,8 @@ if __name__ == "__main__":
         elif isGotoPowerup():
             logger.debug("STATE： 强化提醒界面")
             firstCombat = True
-            #gotoRetire()
-            gotoPowerup()
+            gotoRetire()
+            #gotoPowerup()
             firstCombat = True
             backToMainMenu()
         elif isCombatMenu():
