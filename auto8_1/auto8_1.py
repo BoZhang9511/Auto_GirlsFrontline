@@ -522,8 +522,8 @@ def takeLSupport():
 #启动游戏
 def startGame():
     logger.debug("ACTION: 启动游戏")
-    mouseClick(START_GAME_STEP1_CLICK_BOX,15,15)
-    mouseClick(START_GAME_STEP2_CLICK_BOX,10,10)
+    mouseClick(START_GAME_STEP1_CLICK_BOX,10,10)
+    mouseClick(START_GAME_STEP2_CLICK_BOX,6,6)
     mouseClick(START_GAME_STEP3_CLICK_BOX,10,10)
 
 #关闭作战断开提醒
