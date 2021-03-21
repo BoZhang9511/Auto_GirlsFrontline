@@ -43,6 +43,7 @@ COMBAT_PAUSE_IMAGE_BOX = [0.45,0.62,0.55,0.67]#战斗终止提示判断区域
 RETURN_COMBAT_IMAGE_BOX = [0.75,0.63,0.90,0.70]#回到作战界面判断区域    
 ROUND_IMAGE_BOX = [0.3,0.1,0.4,0.15]#回合数判断区域
 PAUSE_IMAGE_BOX = [0.45,0.07,0.55,0.09]#暂停判断区域
+HEADQUARTERS_IMAGE_BOX = [0.364,0.55,0.378,0.565]#指挥部判断区域
 
 #=================点击拖动区域=================#
 
@@ -71,8 +72,8 @@ MAP_SCALE_BOX = [0.80,0.20,0.90,0.25]
 MAP_DRAG_BOX =[0.80,0.20,0.90,0.25]
 
 #队伍放置点
-COMMAND_CLICK_BOX = [0.36,0.54,0.39,0.58]#指挥部
-
+COMMAND_CLICK_BOX = [0.364,0.55,0.378,0.565]#指挥部
+#[0.36,0.54,0.39,0.58]
 #放置队伍
 TEAM_SET_CLICK_BOX = [0.85,0.75,0.92,0.78]
 
@@ -99,6 +100,9 @@ RESTART_STEP2_CLICK_BOX = [0.35,0.60,0.44,0.64]#点击重新作战
 #撤退
 PAUSE_CLICK_BOX = [0.48,0.07,0.52,0.09]
 RETREAT_CLICK_BOX = [0.32,0.07,0.38,0.11]
+
+#战役结算
+COMBAT_END_CLICK_BOX = [0.48,0.08,0.52,0.10]#战役结算
 
 #跳至主菜单/战斗菜单/工厂菜单
 NAVIGATE_BAR_CLICK_BOX = [0.15,0.10,0.18,0.15]#打开导航条
@@ -364,6 +368,12 @@ def isPauseButton():
     capImage  = getImage(PAUSE_IMAGE_BOX)
     capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
     return imageCompare(initImage,capImage)
+
+def isHeadquarters():
+    initImage = cv2.imread(IMAGE_PATH+"headquarters.png")
+    capImage  = getImage(HEADQUARTERS_IMAGE_BOX)
+    capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
+    return imageCompare(initImage,capImage)
     
 #=============================================#
 #                                             #
@@ -393,7 +403,7 @@ def combatMenuTo8_1():
 def start8_1():
     logger.debug("ACTION: 启动8-1")
     mouseClick(EPISODE_1_CLICK_BOX,2,3)
-    mouseClick(ENTER_COMBAT_CLICK_BOX,4,5)  
+    mouseClick(ENTER_COMBAT_CLICK_BOX,4.8,5)  
     
 #终止8-1
 def end8_1():
@@ -415,6 +425,7 @@ def combatPrepare(tiny = False):
 #放置队伍
 def setTeam():
     logger.debug("ACTION: 放置队伍")
+ 
     mouseClick(COMMAND_CLICK_BOX,0,0)
     checkCount = 0
     while not isSetTeam() and checkCount < 20:
@@ -423,7 +434,8 @@ def setTeam():
     if checkCount >= 20:
         return False
     time.sleep(0.2)
-    mouseClick(TEAM_SET_CLICK_BOX,0,0)
+    
+    mouseClick(TEAM_SET_CLICK_BOX,0.5,0.6)
     checkCount = 0
     while not isMap() and checkCount < 40:
         time.sleep(0.2)
@@ -431,6 +443,7 @@ def setTeam():
     if checkCount >= 40:
         return False
     time.sleep(0.2)
+        
     return True
 
 #开始作战
@@ -451,12 +464,6 @@ def action_1():
     logger.debug("ACTION: 前往1号点")
     mouseClick(COMMAND_CLICK_BOX,0.8,1)
     mouseClick(POINT_1_CLICK_BOX,1.3,1.4)
-    mouseClick([0.70,0.40,0.90,0.65],1.8,2)
-    if not setTeam():
-        logger.debug("ERROR：放置2队失败")
-        closeGame()
-        return False
-    time.sleep(1)
     mouseClick(ROUND_END_CLICK_BOX,0,0)
     return True
 
@@ -465,11 +472,11 @@ def action_2():
     logger.debug("ACTION: 前往3号点")
     mouseClick(POINT_1_CLICK_BOX,0.6,0.7)
     mouseClick(POINT_2_CLICK_BOX,2.3,2.5)
-    mouseClick(POINT_3_CLICK_BOX,0.5,0.6)
+    mouseClick(POINT_3_CLICK_BOX,1.2,1.3)
     mouseClick(CONFIRM_ATTACK_CLICK_BOX,0,0)
     return True
 
-#
+#确认事件
 def confirmEvent():
     mouseClick(CONTINUE_CLICK_BOX,0.6,0.8)
 
@@ -561,16 +568,14 @@ if __name__ == "__main__":
     preface()
     startTime = datetime.datetime.now()
     stepCount = 0
-    firstCombat = True
     failCount = 0
 
     while True:
         if isMap():
             logger.debug("STATE：地图")
             #time.sleep(0.5)
-            if firstCombat:
-                firstCombat = False
-            combatPrepare()
+            if not isHeadquarters():
+                combatPrepare()
             if not setTeam():
                 logger.debug("ERROR：放置1队失败")
                 closeGame()
@@ -602,26 +607,40 @@ if __name__ == "__main__":
             
             if not action_2():#第二回合
                 continue
-            stepCount += 1
-            wait(1.6,1.8)
+            
+            checkCount = 0
+            while not isEvent() and checkCount <50:
+                checkCount +=1
+                time.sleep(0.1)
+            if checkCount >=50:
+                closeGame()
+                continue
             confirmEvent()
             retreat()          
             
+            stepCount += 1
+            
             checkCount = 0
-            while not isMap() and checkCount < 50:
+            while not isCombatFinished() and checkCount < 50:
                 mouseClick([0.70,0.40,0.90,0.65],0.4,0.5)
                 checkCount += 1
             if checkCount >= 50:
                 closeGame()
                 continue
             
-            if not restartCombat():
-                print("ERROR：重启作战失败")
+            checkCount = 0
+            while not is8_1() and checkCount < 50:
+                mouseClick(COMBAT_END_CLICK_BOX,0.4,0.5)
+                checkCount += 1
+            if checkCount >= 50:
                 closeGame()
-                continue  
+                continue
+
             currentTime = datetime.datetime.now()
             runtime = currentTime - startTime
-            logger.debug('> 已运行：'+str(runtime)+'  踩点数: '+str(stepCount))          
+            logger.debug('> 已运行：'+str(runtime)+'  踩点数: '+str(stepCount))
+            if stepCount%3 == 0: #每3轮收一次后勤
+                backToMainMenu()
         elif isRestart():
             logger.debug("STATE：状态未知，可直接重启") 
             restartCombat() 
@@ -643,7 +662,6 @@ if __name__ == "__main__":
             mainMenuToCombatMenu_combatOn()
             combatMenuTo8_1()
             end8_1()
-            firstCombat = True
         elif isMainMenu():
             logger.debug("STATE： 主菜单界面")
             mainMenuToCombatMenu()
@@ -655,7 +673,6 @@ if __name__ == "__main__":
         elif isDesktop():
             logger.debug("STATE：模拟器桌面")
             failCount = 0
-            firstCombat = True
             startGame()
             continue
         elif isFirstLogin():
@@ -670,7 +687,7 @@ if __name__ == "__main__":
                 mouseClick([0.3,0.45,0.4,0.55],1,1)
             if failCount >= 5:  
                 img = getImage([0,0,1,1])
-                img.save("errorRecord/"+str(combatCount)+".png")
+                img.save("errorRecord/"+str(stepCount)+".png")
                 logger.debug(" 无法确定当前状态,关闭重启！")
                 closeGame()
             else:
