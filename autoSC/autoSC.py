@@ -26,7 +26,7 @@ from skimage.metrics import structural_similarity
 #=================截图比对区域=================#
 IMAGE_PATH = 'initial_IMG/'#读取截图的路径
 FIRST_LOGIN_IMAGE_BOX = [0.60,0.58,0.75,0.65]#每日第一次登录时那个确认窗口判断区域
-MAIN_MENU_IMAGE_BOX = [0.65,0.50,0.75,0.60]#主界面判断区域                       
+MAIN_MENU_IMAGE_BOX = [0.65,0.58,0.75,0.63]#主界面判断区域                       
 L_SUPPORT_IMAGE_BOX = [0.05,0.30,0.18,0.39]#后勤完成界面判断区域                
 COMBAT_MENU_IMAGE_BOX = [0.05,0.70,0.12,0.80]#战斗菜单界面判断区域          
 CHOOSE_SC_IMAGE_BOX = [0.50,0.30,0.60,0.40]#SC菜单界面判断区域  
@@ -51,7 +51,7 @@ HEADQUARTERS_IMAGE_BOX = [0.505,0.49,0.53,0.52]#指挥部判断区域
 #=================点击拖动区域=================#
 
 #从主菜单进入作战选择界面
-COMBAT_CLICK_BOX = [0.65,0.50,0.75,0.60]#在主菜单点击战斗（无作战进行中情况）
+COMBAT_CLICK_BOX = [0.65,0.58,0.75,0.63]#在主菜单点击战斗（无作战进行中情况）
 COMBAT_BREAK_CLICK_BOX = [0.65,0.50,0.75,0.58]#在主菜单点击战斗（作战中断情况）
 
 #从作战选择界面进入SC界面
@@ -443,7 +443,7 @@ def enterSC():
     if isCCIV():
         return True
     time.sleep(1)
-    scaleMap(MAP_SCALE_BOX,1,2)
+    scaleMap(MAP_SCALE_BOX,1,4)
     mouseDrag(BATTLE_DRAG_BOX,1,-1,2,240,0.001,1)
     mouseClick(CHAPTER_3_CLICK_BOX,1,2)
     
