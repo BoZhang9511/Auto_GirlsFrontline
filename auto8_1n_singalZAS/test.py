@@ -1,7 +1,7 @@
 from auto8_1n_singalZAS import *
 
 time.sleep(0.5)
-img = getImage(MAIN_MENU_IMAGE_BOX)
+img = getImage([0.36,0.33,0.38,0.35])
 img.show()
 time.sleep(1)
 

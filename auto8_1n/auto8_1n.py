@@ -16,6 +16,7 @@ from os import path
 import numpy as np
 from PIL import ImageGrab
 from skimage.metrics import structural_similarity
+import winsound
 
 #=============================================#
 #                                             #
@@ -26,7 +27,7 @@ from skimage.metrics import structural_similarity
 #=================截图比对区域=================#
 IMAGE_PATH = 'initial_IMG/'#读取截图的路径
 FIRST_LOGIN_IMAGE_BOX = [0.60,0.58,0.75,0.65]#每日第一次登录时那个确认窗口判断区域
-MAIN_MENU_IMAGE_BOX = [0.65,0.50,0.75,0.60]#主界面判断区域                       
+MAIN_MENU_IMAGE_BOX = [0.63,0.52,0.75,0.58]#主界面判断区域                       
 L_SUPPORT_IMAGE_BOX = [0.05,0.30,0.18,0.39]#后勤完成界面判断区域                
 COMBAT_MENU_IMAGE_BOX = [0.05,0.70,0.12,0.80]#战斗菜单界面判断区域          
 CHOOSE_8_1N_IMAGE_BOX = [0.50,0.32,0.60,0.40]#8-1n菜单界面判断区域                        
@@ -46,13 +47,13 @@ RETURN_COMBAT_IMAGE_BOX = [0.75,0.63,0.90,0.70]#回到作战界面判断区域
 #=================点击拖动区域=================#
 
 #从主菜单进入作战选择界面
-COMBAT_CLICK_BOX = [0.65,0.50,0.75,0.60]#在主菜单点击战斗（无作战进行中情况）
+COMBAT_CLICK_BOX = [0.63,0.52,0.75,0.58]#在主菜单点击战斗（无作战进行中情况）
 #[0.65,0.58,0.75,0.63]
-#[0.65,0.50,0.75,0.58]
-COMBAT_ON_CLICK_BOX = [0.65,0.50,0.75,0.58]#在主菜单点击战斗（作战中断情况）
+#[0.63,0.52,0.75,0.58]
+COMBAT_ON_CLICK_BOX = [0.63,0.52,0.75,0.58]#在主菜单点击战斗（作战中断情况）
 
 #从作战选择界面进入8-1n界面
-COMBAT_MISSION_CLICK_BOX = [0.05,0.20,0.10,0.24]#点击作战任务
+COMBAT_MISSION_CLICK_BOX = [0.05,0.28,0.10,0.32]#点击作战任务
 #[0.05,0.20,0.10,0.24]
 #[0.05,0.28,0.10,0.32]
 CHAPTER_DRAG_BOX = [0.16,0.75,0.22,0.80]#向上拖章节选择条
@@ -96,6 +97,9 @@ PLAN_POINT2_CLICK_BOX = [0.33,0.52,0.34,0.54]#点击计划点2
 PLAN_POINT3_CLICK_BOX = [0.39,0.54,0.40,0.56]#点击计划点3
 PLAN_START_CLICK_BOX = [0.88,0.82,0.98,0.85]#点击执行计划
 
+#结束战役
+COMBAT_END_CLICK_BOX = [0.02,0.08,0.10,0.13]#任务选择
+
 #补给Zas
 SUPPLY_CLICK_BOX = [0.85,0.68,0.94,0.70]#点击补给
 
@@ -127,7 +131,7 @@ CONFIRM_RETIRE_CLICK_BOX = [0.54,0.74,0.64,0.78]#确认拆解高星级
 NAVIGATE_BAR_CLICK_BOX = [0.15,0.10,0.18,0.15]#打开导航条
 NAVIGATE_BAR_DRAG_BOX = [0.10,0.28,0.17,0.32]#向右拖导航条
 NAVIGATE_COMBAT_CLICK_BOX = [0.10,0.28,0.12,0.32]#跳转至作战菜单
-NAVIGATE_FACTORY_CLICK_BOX = [0.32,0.28,0.34,0.32]#跳转至工厂菜单
+NAVIGATE_FACTORY_CLICK_BOX = [0.38,0.28,0.40,0.32]#跳转至工厂菜单
 #[0.32,0.28,0.34,0.32]
 #[0.38,0.28,0.40,0.32]
 NAVIGATE_MAIN_MENU_CLICK_BOX = [0.20,0.18,0.28,0.20]#跳转至主菜单
@@ -427,7 +431,7 @@ def combatMenuTo8_1n():
 def start8_1n():
     logger.debug("ACTION: 启动8-1n")
     mouseClick(EPISODE_1_CLICK_BOX,2,3)
-    mouseClick(ENTER_COMBAT_CLICK_BOX,4,5)    
+    mouseClick(ENTER_COMBAT_CLICK_BOX,5.5,6)    
 
 #终止8-1n
 def end8_1n():
@@ -567,8 +571,8 @@ def planMode():
     mouseClick(PLAN_MODE_CLICK_BOX,1,1.5)
     #mouseClick(PLAN_POINT1_CLICK_BOX,0.25,0.3)
     mouseClick(PLAN_POINT2_CLICK_BOX,0.4,0.6)
-    mouseClick(PLAN_POINT3_CLICK_BOX,0.4,0.6)
-    mouseClick(PLAN_START_CLICK_BOX,0,0)
+    mouseClick(PLAN_POINT3_CLICK_BOX,1,1.5)
+    mouseClick(PLAN_START_CLICK_BOX,0.4,0.6)
     
 #补给休息队
 def supplyRest():
@@ -627,7 +631,7 @@ def restartCombat():
     return True
 
 #强化（拆解）
-def gotoPowerup():  
+def gotoPowerup():
     logger.debug("ACTION: 拆解装备") 
     mouseClick(GOTO_POWERUP_CLICK_BOX,6,6)
     gotoFactory()
@@ -774,7 +778,11 @@ if __name__ == "__main__":
             teamFlag = (not teamFlag)
             currentTime = datetime.datetime.now()
             runtime = currentTime - startTime
-            logger.debug('> 已运行：'+str(runtime)+'  8-1n轮次：'+str(combatCount))                
+            logger.debug('> 已运行：'+str(runtime)+'  8-1n轮次：'+str(combatCount))  
+            if combatCount%2 == 0: #每2轮收一次后勤
+                time.sleep(2)
+                mouseClick(COMBAT_END_CLICK_BOX,5,5)
+                backToMainMenu()
         elif is8_1n():
             logger.debug("STATE： 8-1n界面")
             start8_1n()
@@ -782,6 +790,9 @@ if __name__ == "__main__":
         elif isGotoPowerup():
             logger.debug("STATE： 强化提醒界面")
             firstCombat = True
+            winsound.Beep(440, 5000)
+            input()
+            continue
             gotoPowerup()
             firstCombat = True
             backToMainMenu()
@@ -822,8 +833,8 @@ if __name__ == "__main__":
         else:#不知道在哪
             logger.debug("ERROR： 当前状态未知!")
             failCount += 1
-            if failCount == 4:
-                mouseClick([0.3,0.45,0.4,0.55],2,3)
+            # if failCount == 4:
+                # mouseClick([0.3,0.45,0.4,0.55],2,3)
             if failCount >= 5:
                 img = getImage([0,0,1,1])
                 img.save("errorRecord/"+str(combatCount)+".png")
