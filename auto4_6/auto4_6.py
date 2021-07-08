@@ -4,6 +4,7 @@
 #                                             #
 #=============================================#
 
+import logging
 import cv2
 import time
 import random
@@ -124,7 +125,7 @@ def preface():
         print(mystr,end="")
         print("\b" * (len(mystr)*2),end = "",flush=True)
         time.sleep(1)
-    print(">>> 开始操作,现在是",datetime.datetime.now(),"\n")
+    logger.debug("开始操作")
 
 
 #等待若干时间,时间在min~max之间
@@ -141,7 +142,7 @@ def getWindowData():
     hwnd = win32gui.FindWindow(None,windowName)#根据窗口名称找到窗口句柄
     hwnd_desktop = win32gui.FindWindow(None,windowNameDesktop)
     if hwnd == 0 and hwnd_desktop == 0:
-        print("未找到窗口界面,程序自动退出！")
+        logger.debug("未找到窗口界面,程序自动退出！")
         exit(0)
     elif hwnd != 0:
         left,top,right,bottom = win32gui.GetWindowRect(hwnd)#获取窗口的位置数据
@@ -343,17 +344,17 @@ def isSetTeam():
     
 #从主菜单进入作战菜单
 def mainMenuToCombatMenu():
-    print("ACTION: 前往作战菜单")
+    logger.debug("ACTION: 前往作战菜单")
     mouseClick(COMBAT_CLICK_BOX,5,6)  
 
 #从主菜单进入作战菜单（战斗中断情况）
 def mainMenuToCombatMenu_combatOn():
-    print("ACTION: 前往作战菜单-战斗中断")
+    logger.debug("ACTION: 前往作战菜单-战斗中断")
     mouseClick(COMBAT_ON_CLICK_BOX,5,6)  
 
 #从作战菜单进入4-6界面
 def combatMenuTo4_6():
-    print("ACTION: 前往4-6选择界面")
+    logger.debug("ACTION: 前往4-6选择界面")
     mouseClick(COMBAT_MISSION_CLICK_BOX,1,2)
     mouseDrag(CHAPTER_DRAG_BOX,0,1,1,400,0.001,0.8)
     mouseClick(CHAPTER_4_CLICK_BOX,1,2)
@@ -362,20 +363,20 @@ def combatMenuTo4_6():
 
 #开始4-6
 def start4_6():
-    print("ACTION: 启动4-6")
+    logger.debug("ACTION: 启动4-6")
     mouseClick(EPISODE_6_CLICK_BOX,2,3)
     mouseClick(ENTER_COMBAT_CLICK_BOX,4,5)  
     
 #终止4-6
 def end4_6():
-    print("ACTION: 终止4-6")
+    logger.debug("ACTION: 终止4-6")
     mouseClick(EPISODE_6_CLICK_BOX,2,3)
     mouseClick(END_COMBAT_STEP1_CLICK_BOX,2,3)  
     mouseClick(END_COMBAT_STEP2_CLICK_BOX,2,3)  
 
 #战前准备，调整地图
 def combatPrepare(tiny = False):
-    print("STATE: 战前整备")
+    logger.debug("STATE: 战前整备")
     if tiny:
         scaleMap(MAP_SCALE_BOX,1,1)
         mouseDrag(MAP_DRAG_BOX,-1,1,1,500,0.001,1)  
@@ -385,7 +386,7 @@ def combatPrepare(tiny = False):
 
 #放置队伍
 def setTeam():
-    print("ACTION: 放置队伍")
+    logger.debug("ACTION: 放置队伍")
     mouseClick(COMMAND_CLICK_BOX,0,0)
     checkCount = 0
     while not isSetTeam() and checkCount < 20:
@@ -422,7 +423,7 @@ def setTeam():
 
 #开始作战
 def startCombat():
-    print("ACTION: 开始作战")
+    logger.debug("ACTION: 开始作战")
     mouseClick(START_COMBAT_CLICK_BOX,0,0)
     checkCount = 0
     while not isCombatStart() and checkCount < 20:
@@ -435,25 +436,25 @@ def startCombat():
 
 #前往1号点
 def action_1():
-    print("ACTION: 前往1号点")
+    logger.debug("ACTION: 前往1号点")
     mouseClick(AIRPORT_CLICK_BOX,0.5,0.6)
     mouseClick(POINT_1_CLICK_BOX,0,0)
     return eventDealer()
 
 #前往2号点
 def action_2():
-    print("ACTION: 前往2号点")
+    logger.debug("ACTION: 前往2号点")
     mouseClick(POINT_2_CLICK_BOX,1.8,2)
 
 #前往3号点
 def action_3():
-    print("ACTION: 前往3号点")
+    logger.debug("ACTION: 前往3号点")
     mouseClick(POINT_3_CLICK_BOX,0,0)
     return eventDealer()
 
 #前往4号点
 def action_4():
-    print("ACTION: 前往4号点")
+    logger.debug("ACTION: 前往4号点")
     mouseClick(POINT_4_CLICK_BOX,0,0)
     return eventDealer()
 
@@ -479,7 +480,7 @@ def confirmEvent():
     mouseClick(CONTINUE_CLICK_BOX,0.6,0.8)
 
 def withdraw():
-    print("ACTION: 遇敌撤退")
+    logger.debug("ACTION: 遇敌撤退")
     time.sleep(3)
     while not isRestart():
         mouseClick(PAUSE_CLICK_BOX,0.3,0.4)
@@ -488,7 +489,7 @@ def withdraw():
 
 #重启作战
 def restartCombat():
-    print("ACTION: 重启作战")
+    logger.debug("ACTION: 重启作战")
     mouseClick(RESTART_STEP1_CLICK_BOX,1,1.5)
     mouseClick(RESTART_STEP2_CLICK_BOX,0,0)
     checkCount = 0
@@ -502,13 +503,13 @@ def restartCombat():
 
 #收后勤支援
 def takeLSupport():
-    print("ACTION: 收派后勤")
+    logger.debug("ACTION: 收派后勤")
     mouseClick(L_SUPPORT_STEP1_CLICK_BOX,2,3)
     mouseClick(L_SUPPORT_STEP2_CLICK_BOX,4,5)
 
 #启动游戏
 def startGame():
-    print("ACTION: 启动游戏")
+    logger.debug("ACTION: 启动游戏")
     mouseClick(START_GAME_STEP1_CLICK_BOX,30,30)
     mouseClick(START_GAME_STEP2_CLICK_BOX,30,30)
     mouseClick(START_GAME_STEP3_CLICK_BOX,30,30)
@@ -531,7 +532,28 @@ def confirmAnnouncement():
 #                                             #
 #=============================================#
 
+# 创建Logger
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+
+# 创建Handler
+# 终端Handler
+consoleHandler = logging.StreamHandler()
+consoleHandler.setLevel(logging.DEBUG)  
+
 if __name__ == "__main__": 
+    # 文件Handler
+    currentPath = path.dirname(__file__)
+    fileHandler = logging.FileHandler(currentPath+'/log.log', mode='w', encoding='UTF-8')
+    fileHandler.setLevel(logging.NOTSET)
+    # Formatter
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    consoleHandler.setFormatter(formatter)
+    fileHandler.setFormatter(formatter)  
+    # 添加到Logger中
+    logger.addHandler(consoleHandler)
+    logger.addHandler(fileHandler)
+    
     preface()
     startTime = datetime.datetime.now()
     firstCombat = True
@@ -540,17 +562,17 @@ if __name__ == "__main__":
 
     while True:
         if isMap():
-            print("STATE：地图")
+            logger.debug("STATE：地图")
             #time.sleep(0.5)
             if firstCombat:
                 firstCombat = False
                 combatPrepare()
             if not setTeam():
-                print("ERROR：放置队伍失败")
+                logger.debug("ERROR：放置队伍失败")
                 closeGame()
                 continue
             if not startCombat():
-                print("ERROR：开启作战失败")
+                logger.debug("ERROR：开启作战失败")
                 closeGame()
                 continue
             checkCount = 0
@@ -558,7 +580,7 @@ if __name__ == "__main__":
                 checkCount += 1
                 time.sleep(0.2)
             if checkCount >= 50:#过了10s还是卡着，启动失败，直接关闭窗口重启
-                print("ERROR：作战启动超时！")
+                logger.debug("ERROR：作战启动超时！")
                 closeGame()
                 continue
             if action_1():
@@ -572,58 +594,58 @@ if __name__ == "__main__":
                 continue
             stepCount += 1
             if not restartCombat():
-                print("ERROR：重启作战失败")
+                logger.debug("ERROR：重启作战失败")
                 closeGame()
                 continue                
             currentTime = datetime.datetime.now()
             runtime = currentTime - startTime
-            print('> 已运行：',runtime,'  踩点数: ',stepCount)       
+            logger.debug('> 已运行：'+str(runtime)+'  踩点数: '+str(stepCount))     
         elif isRestart():
-            print("STATE：状态未知，可直接重启") 
+            logger.debug("STATE：状态未知，可直接重启") 
             restartCombat() 
         elif is4_6():
-            print("STATE： 4-6界面")
+            logger.debug("STATE： 4-6界面")
             start4_6()
             failCount = 0
         elif isCombatMenu():
-            print("STATE： 战斗菜单")
+            logger.debug("STATE： 战斗菜单")
             combatMenuTo4_6()
             failCount = 0
         elif isCombatPause():
-            print("STATE： 战斗中断提醒界面")
+            logger.debug("STATE： 战斗中断提醒界面")
             failCount = 0
             closeTip()
         elif isReturnCombat():
-            print("STATE： 返回作战界面")
+            logger.debug("STATE： 返回作战界面")
             failCount = 0
             mainMenuToCombatMenu_combatOn()
             combatMenuTo4_6()
             end4_6()
             firstCombat = True
         elif isMainMenu():
-            print("STATE： 主菜单界面")
+            logger.debug("STATE： 主菜单界面")
             mainMenuToCombatMenu()
             failCount = 0
         elif isLSupport():
-            print("STATE： 后勤结束界面")
+            logger.debug("STATE： 后勤结束界面")
             takeLSupport()
             failCount = 0
         elif isDesktop():
-            print("STATE：模拟器桌面")
+            logger.debug("STATE：模拟器桌面")
             failCount = 0
             firstCombat = True
             startGame()
             continue
         elif isFirstLogin():
-            print("STATE：公告确认")
+            logger.debug("STATE：公告确认")
             failCount = 0
             confirmAnnouncement()
             continue
         else:#不知道在哪
-            print("ERROR： 当前状态未知!")
+            logger.debug("ERROR： 当前状态未知!")
             failCount += 1
             if failCount >= 5:  
-                print(">>> ",datetime.datetime.now()," 无法确定当前状态,关闭重启！")
+                logger.debug("无法确定当前状态,关闭重启！")
                 closeGame()
             else:
                 time.sleep(2)

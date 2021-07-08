@@ -266,9 +266,7 @@ logger.setLevel(logging.DEBUG)
 consoleHandler = logging.StreamHandler()
 consoleHandler.setLevel(logging.DEBUG)  
 
-
 if __name__ == "__main__": 
-
     # 文件Handler
     currentPath = path.dirname(__file__)
     fileHandler = logging.FileHandler(currentPath+'/log.log', mode='w', encoding='UTF-8')
