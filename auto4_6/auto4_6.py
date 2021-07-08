@@ -78,6 +78,9 @@ TEAM_SET_CLICK_BOX = [0.85,0.75,0.92,0.78]
 #点击开始作战
 START_COMBAT_CLICK_BOX = [0.85,0.82,0.92,0.86]
 
+#结束战役
+COMBAT_END_CLICK_BOX = [0.02,0.08,0.10,0.13]#任务选择
+
 #前往各点
 POINT_1_CLICK_BOX = [0.66,0.49,0.68,0.51]
 POINT_2_CLICK_BOX = [0.627,0.565,0.64,0.58]
@@ -90,6 +93,10 @@ CONTINUE_CLICK_BOX = [0.45,0.45,0.55,0.55]
 #重启作战
 RESTART_STEP1_CLICK_BOX = [0.22,0.08,0.26,0.14]#点击终止作战
 RESTART_STEP2_CLICK_BOX = [0.35,0.60,0.44,0.64]#点击重新作战
+
+#跳至主菜单/战斗菜单/工厂菜单
+NAVIGATE_BAR_CLICK_BOX = [0.15,0.10,0.18,0.15]#打开导航条
+NAVIGATE_MAIN_MENU_CLICK_BOX = [0.20,0.18,0.28,0.20]#跳转至主菜单
 
 #撤退
 PAUSE_CLICK_BOX = [0.48,0.07,0.52,0.09]
@@ -502,6 +509,12 @@ def restartCombat():
     time.sleep(0.5)
     return True    
 
+#跳转至主菜单(回主菜单收后勤)
+def backToMainMenu():
+    logger.debug("ACTION: 跳转至主菜单")
+    mouseClick(NAVIGATE_BAR_CLICK_BOX,1,2)
+    mouseClick(NAVIGATE_MAIN_MENU_CLICK_BOX,5,6)
+
 #收后勤支援
 def takeLSupport():
     logger.debug("ACTION: 收派后勤")
@@ -560,6 +573,7 @@ if __name__ == "__main__":
     firstCombat = True
     failCount = 0
     stepCount = 0
+    combatCount = 0
 
     while True:
         if isMap():
@@ -600,7 +614,12 @@ if __name__ == "__main__":
                 continue                
             currentTime = datetime.datetime.now()
             runtime = currentTime - startTime
-            logger.debug('> 已运行：'+str(runtime)+'  踩点数: '+str(stepCount))     
+            logger.debug('> 已运行：'+str(runtime)+'  踩点数: '+str(stepCount))
+            combatCount += 1
+            if combatCount%5 == 0: #每5轮收一次后勤
+                time.sleep(2)
+                mouseClick(COMBAT_END_CLICK_BOX,5,5)
+                backToMainMenu()
         elif isRestart():
             logger.debug("STATE：状态未知，可直接重启") 
             restartCombat() 
