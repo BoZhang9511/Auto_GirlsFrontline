@@ -614,7 +614,7 @@ if __name__ == "__main__":
                 continue                
             currentTime = datetime.datetime.now()
             runtime = currentTime - startTime
-            logger.debug('> 已运行：'+str(runtime)+'  踩点数: '+str(stepCount))
+            logger.debug('已运行：'+str(runtime)+'  踩点数: '+str(stepCount))
             combatCount += 1
             if combatCount%5 == 0: #每5轮收一次后勤
                 time.sleep(2)

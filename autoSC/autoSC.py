@@ -26,7 +26,7 @@ from skimage.metrics import structural_similarity
 #=================截图比对区域=================#
 IMAGE_PATH = 'initial_IMG/'#读取截图的路径
 FIRST_LOGIN_IMAGE_BOX = [0.60,0.58,0.75,0.65]#每日第一次登录时那个确认窗口判断区域
-MAIN_MENU_IMAGE_BOX = [0.65,0.58,0.75,0.63]#主界面判断区域                       
+MAIN_MENU_IMAGE_BOX = [0.63,0.52,0.75,0.58]#主界面判断区域                       
 L_SUPPORT_IMAGE_BOX = [0.05,0.30,0.18,0.39]#后勤完成界面判断区域                
 COMBAT_MENU_IMAGE_BOX = [0.05,0.70,0.12,0.80]#战斗菜单界面判断区域          
 CHOOSE_SC_IMAGE_BOX = [0.50,0.30,0.60,0.40]#SC菜单界面判断区域  
@@ -51,11 +51,15 @@ HEADQUARTERS_IMAGE_BOX = [0.505,0.49,0.53,0.52]#指挥部判断区域
 #=================点击拖动区域=================#
 
 #从主菜单进入作战选择界面
-COMBAT_CLICK_BOX = [0.65,0.58,0.75,0.63]#在主菜单点击战斗（无作战进行中情况）
-COMBAT_BREAK_CLICK_BOX = [0.65,0.50,0.75,0.58]#在主菜单点击战斗（作战中断情况）
+COMBAT_CLICK_BOX =  [0.63,0.52,0.75,0.58]#在主菜单点击战斗（无作战进行中情况）
+#[0.65,0.58,0.75,0.63]
+#[0.63,0.52,0.75,0.58]
+COMBAT_ON_CLICK_BOX = [0.63,0.52,0.75,0.58]#在主菜单点击战斗（作战中断情况）
 
 #从作战选择界面进入SC界面
-RESIDENT_ACTIVITY_CLICK_BOX = [0.05,0.45,0.10,0.50]#点击常驻活动
+RESIDENT_ACTIVITY_CLICK_BOX = [0.05,0.53,0.10,0.58]#点击常驻活动
+#[0.05,0.45,0.10,0.50]
+#[0.05,0.53,0.10,0.58]
 BATTLE_DRAG_BOX = [0.30,0.75,0.70,0.80]#向右拖动选择战役
 CHAPTER_SC_CLICK_BOX = [0.15,0.78,0.20,0.83]#选择裂变链接
 CHAPTER_3_CLICK_BOX = [0.4,0.2,0.5,0.4]#选择裂变链接第三章
@@ -133,10 +137,6 @@ L_SUPPORT_STEP2_CLICK_BOX = [0.53,0.60,0.62,0.65]#再次派出
 START_GAME_STEP1_CLICK_BOX = [0.14,0.23,0.18,0.28]#点击图标启动
 START_GAME_STEP2_CLICK_BOX = [0.50,0.70,0.50,0.70]#点击一次
 START_GAME_STEP3_CLICK_BOX = [0.50,0.75,0.50,0.75]#点击开始 
-
-#每日第一次登录的确认
-CHECK_INFORMATION_CLICK_BOX = [0.26,0.61,0.27,0.63]#勾选今日不在弹出
-CONFIRM_INFORMATION_CLICK_BOX = [0.65,0.60,0.72,0.63]#点击确认
 
 #关闭游戏
 CLOSE_GAME_CLICK_BOX = [0.56,0.02,0.57,0.04]
@@ -320,10 +320,11 @@ def isSC():
     
 #判断是否是可以选择认知裂变IV的界面
 def isCCIV():
-    initImage = cv2.imread(IMAGE_PATH+"_CCIV.png")
+    initImage = cv2.imread(IMAGE_PATH+"_CCIV.png")#未知原因导致此处截图可能有两种
+    initImage1 = cv2.imread(IMAGE_PATH+"_CCIV1.png")
     capImage  = getImage(CHOOSE_CCIV_IMAGE_BOX)
     capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
-    return imageCompare(initImage,capImage)
+    return imageCompare(initImage,capImage) or imageCompare(initImage1,capImage)
 
 #判断是否是战斗选择菜单
 def isCombatMenu():
@@ -338,13 +339,6 @@ def isMainMenu():
     capImage  = getImage(MAIN_MENU_IMAGE_BOX)
     capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
     return imageCompare(initImage,capImage)
-
-#判断是否是每日第一次登录的确认界面
-def isFirstLogin():
-    initImage = cv2.imread(IMAGE_PATH+"first_login.png")
-    capImage  = getImage(FIRST_LOGIN_IMAGE_BOX)
-    capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
-    return imageCompare(initImage,capImage)   
 
 #判断是否是委托完成界面
 def isLSupport():
@@ -452,7 +446,7 @@ def enterSC():
 
 #开始认知裂变IV
 def startCCIV(): 
-    mouseClick(CCIV_CLICK_BOX,2,3)
+    mouseClick(CCIV_CLICK_BOX,3,4)
     mouseClick(ENTER_COMBAT_CLICK_BOX,6.5,7)
 
 #终止SC
@@ -463,10 +457,13 @@ def endSC():
     mouseClick(END_COMBAT_STEP2_CLICK_BOX,2,3)  
 
 #战前准备，调整地图
-def combatPrepare():
+def combatPrepare(tiny = False):
     logger.debug("STATE: 战前整备")
     mouseClick(MAP_SCALE_BOX,0.5,0.6)
-    scaleMap(MAP_SCALE_BOX,1,8)
+    if tiny == False:
+        scaleMap(MAP_SCALE_BOX,1,8)
+    else:
+        scaleMap(MAP_SCALE_BOX,1,4)
     mouseDrag(MAP_DRAG_BOX,0,-1,4,240,0.001,1)
     return True
 
@@ -536,10 +533,10 @@ def setTeam():
         return False
     time.sleep(0.4)
  
-    mouseClick(TEAM_SET_CLICK_BOX,0,0)#点击放置队伍
     checkCount = 0
-    while not isInMap() and checkCount < 20:
-        wait(0.3,0.4)
+    while not isInMap() and checkCount < 20: 
+        mouseClick(TEAM_SET_CLICK_BOX,0,0)#点击放置队伍
+        wait(1,1.5)
         checkCount += 1
     if checkCount >= 20:
         return False
@@ -594,6 +591,8 @@ def retreat():
         return False
     mouseClick(PAUSE_CLICK_BOX,0.5,0.6)
     mouseClick(RETREAT_CLICK_BOX,0.5,0.6)
+    if isPauseButton():
+        retreat()
     return True
 
 def withdraw():
@@ -693,11 +692,6 @@ def closeTip():
 #关闭游戏
 def closeGame():
     mouseClick(CLOSE_GAME_CLICK_BOX,5,5)
-
-#确认每日第一次登录的公告
-def confirmAnnouncement():
-    mouseClick(CHECK_INFORMATION_CLICK_BOX,2,2)
-    mouseClick(CONFIRM_INFORMATION_CLICK_BOX,2,2)
 #=============================================#
 #                                             #
 #                 本程序主函数                 #
@@ -738,6 +732,8 @@ if __name__ == "__main__":
             if firstCombat:
                 firstCombat = False
                 combatPrepare()
+            else:
+                combatPrepare()
             if not setTeam():
                 logger.debug("ERROR：放置队伍失败")
                 closeGame()
@@ -747,10 +743,10 @@ if __name__ == "__main__":
                 closeGame()
                 continue
             checkCount = 0
-            while not isCombatStart() and checkCount < 50:#防止网络卡顿，最多等10s
+            while not isCombatStart() and checkCount < 150:#防止网络卡顿，最多等30s
                 checkCount += 1
                 time.sleep(0.2)
-            if checkCount >= 50:#过了10s还是卡着，启动失败，直接关闭窗口重启
+            if checkCount >= 150:#过了30s还是卡着，启动失败，直接关闭窗口重启
                 logger.debug("ERROR：作战启动超时！")
                 closeGame()
                 continue
@@ -774,13 +770,15 @@ if __name__ == "__main__":
                 closeGame()
                 continue
             confirmEvent()
-            retreat()          
+            #retreat()          
             
             stepCount += 1
                         
             checkCount = 0
             while not isCCIV() and checkCount < 50:
-                mouseClick(COMBAT_END_CLICK_BOX,0.4,0.5)
+                mouseClick(PAUSE_CLICK_BOX,0.5,0.6)
+                mouseClick(RETREAT_CLICK_BOX,0.5,0.6)
+                #mouseClick(COMBAT_END_CLICK_BOX,0.4,0.5)
                 checkCount += 1
             if checkCount >= 50:
                 closeGame()
@@ -789,7 +787,7 @@ if __name__ == "__main__":
             currentTime = datetime.datetime.now()
             runtime = currentTime - startTime
             logger.debug('> 已运行：'+str(runtime)+'  踩点数: '+str(stepCount))
-            if stepCount%30 == 0: #每30轮收一次后勤
+            if stepCount%4 == 0: #每4轮收一次后勤
                 time.sleep(0.5)
                 backToMainMenu()
         elif isRestart():
@@ -825,11 +823,6 @@ if __name__ == "__main__":
             failCount = 0
             startGame()
             firstCombat = True
-            continue
-        elif isFirstLogin():
-            logger.debug("STATE：公告确认")
-            failCount = 0
-            confirmAnnouncement()
             continue
         else:#不知道在哪
             logger.debug("ERROR： 当前状态未知!")
