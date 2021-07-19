@@ -534,9 +534,11 @@ def setTeam():
     time.sleep(0.4)
  
     checkCount = 0
+    mouseClick(TEAM_SET_CLICK_BOX,0,0)#点击放置队伍
     while not isInMap() and checkCount < 20: 
-        mouseClick(TEAM_SET_CLICK_BOX,0,0)#点击放置队伍
-        wait(1,1.5)
+        if isSetTeam():
+            mouseClick(TEAM_SET_CLICK_BOX,0,0)#点击放置队伍
+        wait(0.3,0.4)
         checkCount += 1
     if checkCount >= 20:
         return False
