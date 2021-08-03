@@ -26,7 +26,7 @@ from skimage.metrics import structural_similarity
 #=================截图比对区域=================#
 IMAGE_PATH = 'initial_IMG/'#读取截图的路径
 FIRST_LOGIN_IMAGE_BOX = [0.60,0.58,0.75,0.65]#每日第一次登录时那个确认窗口判断区域
-MAIN_MENU_IMAGE_BOX =[0.65,0.58,0.75,0.65]#主界面判断区域                       
+MAIN_MENU_IMAGE_BOX =[0.63,0.52,0.75,0.58]#主界面判断区域                       
 L_SUPPORT_IMAGE_BOX = [0.05,0.30,0.18,0.39]#后勤完成界面判断区域                
 COMBAT_MENU_IMAGE_BOX = [0.05,0.70,0.12,0.80]#战斗菜单界面判断区域          
 CHOOSE_13_4e_IMAGE_BOX = [0.50,0.67,0.60,0.75]#13-4e菜单界面判断区域                        
@@ -46,11 +46,15 @@ RETURN_COMBAT_IMAGE_BOX = [0.75,0.63,0.90,0.70]#回到作战界面判断区域
 #=================点击拖动区域=================#
 
 #从主菜单进入作战选择界面
-COMBAT_CLICK_BOX = [0.65,0.58,0.75,0.65]#在主菜单点击战斗（无作战进行中情况）
-COMBAT_BREAK_CLICK_BOX = [0.65,0.50,0.75,0.58]#在主菜单点击战斗（作战中断情况）
+COMBAT_CLICK_BOX = [0.63,0.52,0.75,0.58]#在主菜单点击战斗（无作战进行中情况）
+#[0.65,0.58,0.75,0.63]
+#[0.63,0.52,0.75,0.58]
+COMBAT_ON_CLICK_BOX = [0.63,0.52,0.75,0.58]#在主菜单点击战斗（作战中断情况）
 
 #从作战选择界面进入13-4e界面
-COMBAT_MISSION_CLICK_BOX = [0.05,0.20,0.10,0.24]#点击作战任务
+COMBAT_MISSION_CLICK_BOX = [0.05,0.28,0.10,0.32]#点击作战任务
+#[0.05,0.20,0.10,0.24]
+#[0.05,0.28,0.10,0.32]
 CHAPTER_DRAG_BOX = [0.16,0.75,0.22,0.80]#向上拖章节选择条
 CHAPTER_13_CLICK_BOX = [0.15,0.63,0.20,0.68]#选择第13章
 EMERGENCY_CLICK_BOX = [0.84,0.24,0.87,0.28]#选择紧急难度
@@ -93,7 +97,7 @@ PLAN_POINT1_CLICK_BOX = [0.543,0.547,0.563,0.577]#点击计划点1
 PLAN_START_CLICK_BOX = [0.88,0.82,0.98,0.85]#点击执行计划
 
 #战役结算
-COMBAT_END_CLICK_BOX = [0.48,0.08,0.52,0.10]#战役结算，需要偏右，否则捞出人形会点到分享按钮      
+COMBAT_END_CLICK_BOX = [0.02,0.08,0.10,0.13]#任务选择
 
 #补给
 SUPPLY_CLICK_BOX = [0.85,0.68,0.94,0.70]#点击补给
@@ -773,6 +777,10 @@ if __name__ == "__main__":
             currentTime = datetime.datetime.now()
             runtime = currentTime - startTime
             logger.debug('已运行：'+str(runtime)+'  13-4e轮次：'+str(combatCount))
+            if combatCount%5 == 0: #每5轮收一次后勤
+                time.sleep(2)
+                mouseClick(COMBAT_END_CLICK_BOX,5,5)
+                backToMainMenu()
         elif is13_4e():
             logger.debug("STATE： 13-4e界面")
             start13_4e()

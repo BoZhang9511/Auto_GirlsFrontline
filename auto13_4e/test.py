@@ -1,10 +1,7 @@
 from auto13_4e import *
 
-mouseClick(AIRPORT_2_CLICK_BOX,0,0)
-exit(0)
-
 time.sleep(0.5)
-img = getImage(COMBAT_START_IMAGE_BOX)
+img = getImage(COMBAT_END_CLICK_BOX)
 img.show()
 time.sleep(1)
 
