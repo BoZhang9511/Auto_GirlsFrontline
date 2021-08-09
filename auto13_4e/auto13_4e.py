@@ -420,7 +420,7 @@ def mainMenuToCombatMenu():
 #从主菜单进入作战菜单（战斗中断情况）
 def mainMenuToCombatMenu_combatOn():
     logger.debug("ACTION: 前往作战菜单-战斗中断")
-    mouseClick(COMBAT_BREAK_CLICK_BOX,5,6)  
+    mouseClick(COMBAT_ON_CLICK_BOX,5,6)  
 
 #从作战菜单进入13-4e界面
 def combatMenuTo13_4e():
