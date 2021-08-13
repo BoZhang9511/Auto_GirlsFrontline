@@ -12,10 +12,14 @@
 当前上传了以下功能：
 1. auto0_2: 自动0-2拖尸
 2. auto4_6: 自动4-6捡垃圾
-3. auto8_1n_singalZAS: 单ZAS自动8-1n炸狗
-4. autoLSupport：自动收后勤
-5. auto13_4: 自动13-4拖尸捞核心
-6. auto13_4e: 自动打捞防卫者
+3. auto4_6_combat: 打捞
+4. auto5_6: 打捞
+5. auto8_1: 高资捡垃圾(效率低，推荐在裂变链接）
+6. autoSC: 裂变链接捡高资
+7. auto8_1n_singalZAS: 单ZAS自动8-1n炸狗
+8. autoLSupport：自动收后勤
+9. auto13_4: 自动13-4拖尸捞核心
+10. auto13_4e: 自动打捞防卫者
 
 >至于打捞，太精污了，不想做
 
