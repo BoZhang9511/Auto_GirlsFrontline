@@ -27,7 +27,7 @@ from skimage.metrics import structural_similarity
 
 #=================截图比对区域=================#
 IMAGE_PATH = 'initial_IMG/'#读取截图的路径
-MAIN_MENU_IMAGE_BOX = [0.65,0.58,0.75,0.63]#主界面判断区域
+MAIN_MENU_IMAGE_BOX = [0.63,0.52,0.75,0.58]#主界面判断区域
 #[0.65,0.58,0.75,0.63]
 #[0.63,0.52,0.75,0.58]                       
 L_SUPPORT_IMAGE_BOX = [0.05,0.30,0.18,0.39]#后勤完成界面判断区域                       
@@ -47,9 +47,6 @@ START_GAME_STEP3_CLICK_BOX = [0.50,0.75,0.50,0.75]#点击开始
 #关闭游戏
 CLOSE_GAME_CLICK_BOX = [0.56,0.02,0.57,0.04]
 
-#每日第一次登录的确认
-CHECK_INFORMATION_CLICK_BOX = [0.26,0.61,0.27,0.63]#勾选今日不在弹出
-CONFIRM_INFORMATION_CLICK_BOX = [0.65,0.60,0.72,0.63]#点击确认
 #=============================================#
 #                                             #
 #                 基本功能函数                 #
@@ -249,10 +246,6 @@ def closeGame():
     logger.debug("ACTION: 关闭游戏")
     mouseClick(CLOSE_GAME_CLICK_BOX,5,5)
 
-#确认每日第一次登录的公告
-def confirmAnnouncement():
-    mouseClick(CHECK_INFORMATION_CLICK_BOX,2,2)
-    mouseClick(CONFIRM_INFORMATION_CLICK_BOX,2,2)
 #=============================================#
 #                                             #
 #                 本程序主函数                 #
