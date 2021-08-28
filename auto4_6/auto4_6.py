@@ -26,8 +26,9 @@ from skimage.metrics import structural_similarity
 
 #=================截图比对区域=================#
 IMAGE_PATH = 'initial_IMG/'#读取截图的路径   
-FIRST_LOGIN_IMAGE_BOX = [0.60,0.58,0.75,0.65]#每日第一次登录时那个确认窗口判断区域
-MAIN_MENU_IMAGE_BOX = [0.63,0.52,0.75,0.58]#主界面判断区域                       
+MAIN_MENU_IMAGE_BOX =[0.63,0.52,0.75,0.58]#主界面判断区域
+#[0.65,0.58,0.75,0.63]
+#[0.63,0.52,0.75,0.58]                     
 L_SUPPORT_IMAGE_BOX = [0.05,0.30,0.18,0.39]#后勤完成界面判断区域                
 COMBAT_MENU_IMAGE_BOX = [0.05,0.70,0.12,0.80]#战斗菜单界面判断区域  
 CHOOSE_4_6_IMAGE_BOX = [0.50,0.62,0.60,0.69]#4-6菜单界面判断区域     
@@ -117,9 +118,6 @@ CLOSE_GAME_CLICK_BOX = [0.56,0.02,0.57,0.04]
 #关闭作战断开提醒
 CLOSE_TIP_CLICK_BOX = [0.45,0.62,0.55,0.67]
 
-#每日第一次登录的确认
-CHECK_INFORMATION_CLICK_BOX = [0.26,0.61,0.27,0.63]#勾选今日不在弹出
-CONFIRM_INFORMATION_CLICK_BOX = [0.65,0.60,0.72,0.63]#点击确认
 #=============================================#
 #                                             #
 #                 基本功能函数                 #
@@ -302,13 +300,6 @@ def isMainMenu():
     capImage  = getImage(MAIN_MENU_IMAGE_BOX)
     capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
     return imageCompare(initImage,capImage)
-  
-#判断是否是每日第一次登录的确认界面
-def isFirstLogin():
-    initImage = cv2.imread(IMAGE_PATH+"first_login.png")
-    capImage  = getImage(FIRST_LOGIN_IMAGE_BOX)
-    capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
-    return imageCompare(initImage,capImage)   
 
 #判断是否是委托完成界面
 def isLSupport():
@@ -364,7 +355,7 @@ def mainMenuToCombatMenu_combatOn():
 def combatMenuTo4_6():
     logger.debug("ACTION: 前往4-6选择界面")
     mouseClick(COMBAT_MISSION_CLICK_BOX,1,2)
-    mouseDrag(CHAPTER_DRAG_BOX,0,1,1,400,0.001,0.8)
+    mouseDrag(CHAPTER_DRAG_BOX,0,1,3,400,0.001,0.8)
     mouseClick(CHAPTER_4_CLICK_BOX,1,2)
     mouseClick(NORMAL_CLICK_BOX,1,2)
     mouseDrag(EPISODE_DRAG_BOX,0,-1,1,500,0.001,1.8)
@@ -536,10 +527,6 @@ def closeTip():
 def closeGame():
     mouseClick(CLOSE_GAME_CLICK_BOX,5,5)
 
-#确认每日第一次登录的公告
-def confirmAnnouncement():
-    mouseClick(CHECK_INFORMATION_CLICK_BOX,2,2)
-    mouseClick(CONFIRM_INFORMATION_CLICK_BOX,2,2)
 #=============================================#
 #                                             #
 #                 本程序主函数                 #
@@ -656,20 +643,13 @@ if __name__ == "__main__":
             firstCombat = True
             startGame()
             continue
-        elif isFirstLogin():
-            logger.debug("STATE：公告确认")
-            failCount = 0
-            confirmAnnouncement()
-            continue
         else:#不知道在哪
             logger.debug("ERROR： 当前状态未知!")
             failCount += 1
             if failCount >= 5:  
-                logger.debug("无法确定当前状态,关闭重启！")
+                img = getImage([0,0,1,1])
+                img.save("errorRecord/"+str(failCount)+".png")
+                logger.debug(" 无法确定当前状态,关闭重启！")
                 closeGame()
             else:
                 time.sleep(2)
-
-                
-            
-            

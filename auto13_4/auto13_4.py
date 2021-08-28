@@ -25,8 +25,7 @@ from skimage.metrics import structural_similarity
 
 #=================截图比对区域=================#
 IMAGE_PATH = 'initial_IMG/'#读取截图的路径
-FIRST_LOGIN_IMAGE_BOX = [0.60,0.58,0.75,0.65]#每日第一次登录时那个确认窗口判断区域
-MAIN_MENU_IMAGE_BOX = [0.65,0.58,0.75,0.63]#主界面判断区域
+MAIN_MENU_IMAGE_BOX = [0.63,0.52,0.75,0.58]#主界面判断区域
 #[0.65,0.58,0.75,0.63]
 #[0.63,0.52,0.75,0.58]                      
 L_SUPPORT_IMAGE_BOX = [0.05,0.30,0.18,0.39]#后勤完成界面判断区域                
@@ -49,13 +48,13 @@ RETURN_COMBAT_IMAGE_BOX = [0.75,0.63,0.90,0.70]#回到作战界面判断区域
 #=================点击拖动区域=================#
 
 #从主菜单进入作战选择界面
-COMBAT_CLICK_BOX = [0.65,0.58,0.75,0.63]#在主菜单点击战斗（无作战进行中情况）
+COMBAT_CLICK_BOX = [0.63,0.52,0.75,0.58]#在主菜单点击战斗（无作战进行中情况）
 #[0.65,0.58,0.75,0.63]
 #[0.63,0.52,0.75,0.58]
 COMBAT_ON_CLICK_BOX = [0.63,0.52,0.75,0.58]#在主菜单点击战斗（作战中断情况）
 
 #从作战选择界面进入13-4界面
-COMBAT_MISSION_CLICK_BOX = [0.05,0.20,0.10,0.24]#点击作战任务
+COMBAT_MISSION_CLICK_BOX = [0.05,0.28,0.10,0.32]#点击作战任务
 #[0.05,0.20,0.10,0.24]
 #[0.05,0.28,0.10,0.32]
 CHAPTER_DRAG_BOX = [0.16,0.75,0.22,0.80]#向上拖章节选择条
@@ -143,7 +142,7 @@ POWERUP_FINISH_CLICK_BOX = [0.46,0.64,0.54,0.66]#完成强化
 NAVIGATE_BAR_CLICK_BOX = [0.15,0.10,0.18,0.15]#打开导航条
 NAVIGATE_BAR_DRAG_BOX = [0.10,0.28,0.17,0.32]#向右拖导航条
 NAVIGATE_COMBAT_CLICK_BOX = [0.10,0.28,0.12,0.32]#跳转至作战菜单
-NAVIGATE_FACTORY_CLICK_BOX = [0.32,0.28,0.34,0.32]#跳转至工厂菜单
+NAVIGATE_FACTORY_CLICK_BOX = [0.38,0.28,0.40,0.32]#跳转至工厂菜单
 #[0.32,0.28,0.34,0.32]
 #[0.38,0.28,0.40,0.32]
 NAVIGATE_MAIN_MENU_CLICK_BOX = [0.20,0.18,0.28,0.20]#跳转至主菜单
@@ -156,10 +155,6 @@ L_SUPPORT_STEP2_CLICK_BOX = [0.53,0.60,0.62,0.65]#再次派出
 START_GAME_STEP1_CLICK_BOX = [0.14,0.23,0.18,0.28]#点击图标启动
 START_GAME_STEP2_CLICK_BOX = [0.50,0.70,0.50,0.70]#点击一次
 START_GAME_STEP3_CLICK_BOX = [0.50,0.75,0.50,0.75]#点击开始 
-
-#每日第一次登录的确认
-CHECK_INFORMATION_CLICK_BOX = [0.26,0.61,0.27,0.63]#勾选今日不在弹出
-CONFIRM_INFORMATION_CLICK_BOX = [0.65,0.60,0.72,0.63]#点击确认
 
 #关闭游戏
 CLOSE_GAME_CLICK_BOX = [0.56,0.02,0.57,0.04]
@@ -341,13 +336,6 @@ def isMainMenu():
     capImage  = getImage(MAIN_MENU_IMAGE_BOX)
     capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
     return imageCompare(initImage,capImage)
-
-#判断是否是每日第一次登录的确认界面
-def isFirstLogin():
-    initImage = cv2.imread(IMAGE_PATH+"first_login.png")
-    capImage  = getImage(FIRST_LOGIN_IMAGE_BOX)
-    capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
-    return imageCompare(initImage,capImage)   
 
 #判断是否是委托完成界面
 def isLSupport():
@@ -695,13 +683,9 @@ def closeTip():
 def closeGame():
     mouseClick(CLOSE_GAME_CLICK_BOX,5,5)
 
-#确认每日第一次登录的公告
-def confirmAnnouncement():
-    mouseClick(CHECK_INFORMATION_CLICK_BOX,2,2)
-    mouseClick(CONFIRM_INFORMATION_CLICK_BOX,2,2)
 #=============================================#
 #                                             #
-#                 本程序主函数                 #
+#                 本程序主函数                #
 #                                             #
 #=============================================#
 
@@ -819,11 +803,6 @@ if __name__ == "__main__":
             firstCombat = True
             failCount = 0
             startGame()
-            continue
-        elif isFirstLogin():
-            logger.debug("STATE：公告确认")
-            failCount = 0
-            confirmAnnouncement()
             continue
         else:#不知道在哪
             logger.debug("ERROR： 当前状态未知!")
