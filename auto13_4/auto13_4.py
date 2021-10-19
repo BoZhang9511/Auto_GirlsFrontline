@@ -54,7 +54,7 @@ COMBAT_CLICK_BOX = [0.63,0.52,0.75,0.58]#在主菜单点击战斗（无作战进
 COMBAT_ON_CLICK_BOX = [0.63,0.52,0.75,0.58]#在主菜单点击战斗（作战中断情况）
 
 #从作战选择界面进入13-4界面
-COMBAT_MISSION_CLICK_BOX = [0.05,0.20,0.10,0.24]#点击作战任务
+COMBAT_MISSION_CLICK_BOX = [0.05,0.28,0.10,0.32]#点击作战任务
 #[0.05,0.20,0.10,0.24]
 #[0.05,0.28,0.10,0.32]
 CHAPTER_DRAG_BOX = [0.16,0.75,0.22,0.80]#向上拖章节选择条
@@ -430,7 +430,7 @@ def combatMenuTo13_4():
 def start13_4():
     logger.debug("ACTION: 启动13-4")
     mouseClick(EPISODE_4_CLICK_BOX,2,3)
-    mouseClick(ENTER_COMBAT_CLICK_BOX,6.5,7)
+    mouseClick(ENTER_COMBAT_CLICK_BOX,10,11)
     
 
 #终止13-4
@@ -506,10 +506,10 @@ def changeForce(teamFlag):
     time.sleep(0.8)
     mouseClick(CHANGE_FORCE_STEP6_CLICK_BOX,0,0)#点击返回
     checkCount = 0
-    while not isInMap() and checkCount < 20:
+    while not isInMap() and checkCount < 40:
         wait(0.3,0.4)
         checkCount += 1
-    if checkCount >= 20:
+    if checkCount >= 40:
         return False
     time.sleep(0.8)
     return True
@@ -620,7 +620,7 @@ def gotoRetire():
     mouseClick(GOTO_POWERUP_CLICK_BOX,5,6)
     mouseClick(CHOOSE_RETIRE_CLICK_BOX,1,2)
     mouseClick(CHOOSE_RETIRE_CHARACTER_CLICK_BOX,1,2)
-    for i in range(14):
+    for i in range(7):
         mouseClick(RETIRE_CHARACTER_1_CLICK_BOX,0.2,0.3)#选六个
         mouseClick(RETIRE_CHARACTER_2_CLICK_BOX,0.2,0.3)
         mouseClick(RETIRE_CHARACTER_3_CLICK_BOX,0.2,0.3)
@@ -731,6 +731,7 @@ if __name__ == "__main__":
                 continue
             if not changeForce(teamFlag):
                 logger.debug("ERROR：更换打手失败")
+                input()
                 closeGame()
                 continue                
             if not setTeam():
@@ -764,6 +765,7 @@ if __name__ == "__main__":
             logger.debug('已运行：'+str(runtime)+'  13-4轮次：'+str(combatCount))
             if combatCount%2 == 0: #每2轮收一次后勤
                 backToMainMenu()
+                time.sleep(3)
         elif is13_4():
             logger.debug("STATE： 13-4界面")
             start13_4()
