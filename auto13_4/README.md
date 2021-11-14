@@ -33,7 +33,8 @@
 
 ## 关于写书功能：
 
-​	此功能为@railannad添加，请在`auto13_4.py`中搜索`作战报告书配置`并根据注释配置以下三个内容：`combat_record `  ：`Boolean`是否开启制作作战报告书，`True` 为开启
+​	此功能为@railannad添加，请在`auto13_4.py`中搜索`作战报告书配置`并根据注释配置以下三个内容：
+`combat_record `  ：`Boolean`是否开启制作作战报告书，`True` 为开启
 
 `combat_record_interval ` : `int` 制作报告书的时间间隔，单位：分钟  
 
