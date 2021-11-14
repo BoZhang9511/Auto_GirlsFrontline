@@ -850,7 +850,7 @@ if __name__ == "__main__":
     
     #### 作战报告书配置区域，前方塑料英语预警
     combat_record = True # 是否开启写书，True为开启。 请确保电池充足，目前本人还有1w电池，等电池用完了再追加判断电量不足的模块（咕咕咕）
-    combat_record_interval = 2 # 写书的时间间隔， 满级基建为60分钟，请根据自身情况修改，多2分钟为了提高容错率
+    combat_record_interval = 62 # 写书的时间间隔， 满级基建为60分钟，请根据自身情况修改，多2分钟为了提高容错率
     combat_record_next_time = time.time() + combat_record_interval * 60 #下次运行的时间
     combat_record_type = 2 #写书的类型， 1为作战报告  2为特种作战报告
 
