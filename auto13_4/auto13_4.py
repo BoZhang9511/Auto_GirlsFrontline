@@ -769,6 +769,9 @@ def enterToDataRoomAndWriteCombatRecord(type:int):
     failCount = 0
     while not isNewsCenter():
         mouseClick(CHANGE_BASE_TARGET_CLICK_BOX,1,2)#点击切换箭头
+        failCount += 1
+        if failCount >10 :
+            return False
     mouseClick(NEWS_CENTER_CLICK_BOX,1,2)#进入情报中心
     time.sleep(3)
     mouseClick(NAVIGATE_BAR_CLICK_BOX,1,2)#打开导航条
