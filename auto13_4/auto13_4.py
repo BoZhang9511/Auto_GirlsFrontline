@@ -792,26 +792,7 @@ def enterToDataRoomAndWriteCombatRecord(type:int):
     #mouseClick(COMBAT_RECORD_CALCEL_CLICK_BOX,1,2)
     mouseClick(COMBAT_RECORD_CONFIRM_CLICK_BOX,1,2)
     mouseClick(CLOSE_OFFICE_DESK_CLICK_BOX,1,2)
-    return time.time()
-
-
-# 设置下次写书时间
-def setNextCombatRecordTime (time_next:float):
-    with open (".combat_record","w",encoding="utf-8") as temp:
-        temp.write(str(time_next))
-        
-#获取下次写书时间
-def getNextCombatRecordTime (combat_record_interval:int):
-    if not path.exists(".combat_record"):
-        time_next = time.time() + combat_record_interval * 60
-        setNextCombatRecordTime(time_next)
-        return time_next
-    with open (".combat_record","r",encoding="utf-8") as temp:
-        time_next = temp.readline()
-    return float (time_next)
-
-
-    
+    return time.time()    
 
 #=============================================#
 #                                             #
@@ -829,7 +810,10 @@ consoleHandler = logging.StreamHandler()
 consoleHandler.setLevel(logging.DEBUG)  
 # 文件Handler
 currentPath = path.dirname(__file__)
-fileHandler = logging.FileHandler(currentPath+'/log.log', mode='w', encoding='UTF-8')
+log_date = time.time()
+log_localtime = time.localtime(log_date)
+log_start_time = time.strftime("%Y-%m-%d %H:%M:%S", log_localtime)
+fileHandler = logging.FileHandler(currentPath+'.log', mode='w', encoding='UTF-8')
 fileHandler.setLevel(logging.NOTSET)
 # Formatter
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -934,13 +918,13 @@ if __name__ == "__main__":
             if combat_record and ( time_now >= combat_record_next_time): #距离上次写书时间已经超过62分钟
                 temp = enterToDataRoomAndWriteCombatRecord(combat_record_type)
                 if not temp:
-                    logger.debug("ERROR: 进入资料室写书失败,重启游戏")
+                    logger.debug("ERROR: 写书失败,重启游戏")
                     closeGame()
                 else:
                     temp2 = time.localtime(temp+combat_record_interval*62)
                     next_time = time.strftime("%Y-%m-%d %H:%M:%S", temp2)
                     logger.debug("NOTICE: 写书完成，预计下次写书时间为:"+next_time)
-                    setNextCombatRecordTime(temp2)
+                    combat_record_next_time = time.time() + combat_record_interval * 60
                     backToMainMenu()
                     time.sleep(2)
             mainMenuToCombatMenu()
