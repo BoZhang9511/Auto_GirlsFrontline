@@ -54,7 +54,8 @@ COMBAT_CLICK_BOX = [0.63,0.52,0.75,0.58]#在主菜单点击战斗（无作战进
 COMBAT_ON_CLICK_BOX = [0.63,0.52,0.75,0.58]#在主菜单点击战斗（作战中断情况）
 
 #从作战选择界面进入13-4界面
-COMBAT_MISSION_CLICK_BOX = [0.05,0.28,0.10,0.32]#点击作战任务
+COMBAT_MISSION_CLICK_BOX = [0.05,0.28,0.10,0.32]#点击作战任务 有活动
+#COMBAT_MISSION_CLICK_BOX = [0.05,0.20,0.10,0.25] # 没活动
 #[0.05,0.20,0.10,0.24]
 #[0.05,0.28,0.10,0.32]
 CHAPTER_DRAG_BOX = [0.16,0.75,0.22,0.80]#向上拖章节选择条
@@ -114,29 +115,52 @@ WITHDRAW_STEP2_CLICK_BOX = [0.55,0.61,0.62,0.64]#确认撤退
 RESTART_STEP1_CLICK_BOX = [0.22,0.09,0.26,0.14]#点击终止作战
 RESTART_STEP2_CLICK_BOX = [0.34,0.61,0.43,0.63]#点击重新作战
 
-#拆解
-GOTO_POWERUP_CLICK_BOX = [0.58,0.60,0.68,0.64]#前往强化界面
-CHOOSE_RETIRE_CLICK_BOX = [0.06,0.46,0.12,0.50]#选择回收拆解选项
-CHOOSE_RETIRE_CHARACTER_CLICK_BOX = [0.25,0.26,0.3,0.33]#选择拆解人形
-RETIRE_CHARACTER_1_CLICK_BOX = [0.12,0.3,0.14,0.36]#第一行第一只人形 
-RETIRE_CHARACTER_2_CLICK_BOX = [0.24,0.3,0.26,0.36]#第一行第二只人形 
-RETIRE_CHARACTER_3_CLICK_BOX = [0.36,0.3,0.38,0.36]#第一行第三只人形 
-RETIRE_CHARACTER_4_CLICK_BOX = [0.48,0.3,0.50,0.36]#第一行第四只人形 
-RETIRE_CHARACTER_5_CLICK_BOX = [0.60,0.3,0.62,0.36]#第一行第五只人形 
-RETIRE_CHARACTER_6_CLICK_BOX = [0.72,0.3,0.74,0.36]#第一行第六只人形 
-RETIRE_DRAG_BOX = [0.40,0.60,0.60,0.60]#往上拖一行
-CHOOSE_FINISH_RETIRE_CLICK_BOX = [0.88,0.68,0.92,0.74]#完成选择
-RETIRE_CLICK_BOX = [0.84,0.77,0.90,0.80]#点击拆解
-CONFIRM_RETIRE_CLICK_BOX = [0.54,0.74,0.64,0.78]#确认拆解高星人形
+# #拆解
+# GOTO_POWERUP_CLICK_BOX = [0.58,0.60,0.68,0.64]#前往强化界面
+# CHOOSE_RETIRE_CLICK_BOX = [0.06,0.46,0.12,0.50]#选择回收拆解选项
+# CHOOSE_RETIRE_CHARACTER_CLICK_BOX = [0.25,0.26,0.3,0.33]#选择拆解人形
+# RETIRE_CHARACTER_1_CLICK_BOX = [0.12,0.3,0.14,0.36]#第一行第一只人形 
+# RETIRE_CHARACTER_2_CLICK_BOX = [0.24,0.3,0.26,0.36]#第一行第二只人形 
+# RETIRE_CHARACTER_3_CLICK_BOX = [0.36,0.3,0.38,0.36]#第一行第三只人形 
+# RETIRE_CHARACTER_4_CLICK_BOX = [0.48,0.3,0.50,0.36]#第一行第四只人形 
+# RETIRE_CHARACTER_5_CLICK_BOX = [0.60,0.3,0.62,0.36]#第一行第五只人形 
+# RETIRE_CHARACTER_6_CLICK_BOX = [0.72,0.3,0.74,0.36]#第一行第六只人形 
+# RETIRE_DRAG_BOX = [0.40,0.60,0.60,0.60]#往上拖一行
+# CHOOSE_FINISH_RETIRE_CLICK_BOX = [0.88,0.68,0.92,0.74]#完成选择
+# RETIRE_CLICK_BOX = [0.84,0.77,0.90,0.80]#点击拆解
+# CONFIRM_RETIRE_CLICK_BOX = [0.54,0.74,0.64,0.78]#确认拆解高星人形
 
-#强化
-CHOOSE_POWERUP_CHARACTER_CLICK_BOX = [0.20,0.40,0.3,0.50]#选择被强化人形
-FIRST_CHARACTER_CLICK_BOX = [0.10,0.3,0.14,0.36]#选择第一只人形 
-CHOOSE_EXP_CHARACTER_CLICK_BOX = [0.40,0.32,0.43,0.36]#选择狗粮
-AUTO_CHOOSE_CLICK_BOX = [0.88,0.66,0.94,0.72]#智能选择
-CHOOSE_CONFIRM_CLICK_BOX = [0.88,0.66,0.94,0.72]#完成选择
-POWERUP_CLICK_BOX = [0.86,0.75,0.92,0.78]#点击强化
-POWERUP_FINISH_CLICK_BOX = [0.46,0.64,0.54,0.66]#完成强化
+# #强化
+# CHOOSE_POWERUP_CHARACTER_CLICK_BOX = [0.20,0.40,0.3,0.50]#选择被强化人形
+# FIRST_CHARACTER_CLICK_BOX = [0.10,0.3,0.14,0.36]#选择第一只人形 
+# CHOOSE_EXP_CHARACTER_CLICK_BOX = [0.40,0.32,0.43,0.36]#选择狗粮
+# AUTO_CHOOSE_CLICK_BOX = [0.88,0.66,0.94,0.72]#智能选择
+# CHOOSE_CONFIRM_CLICK_BOX = [0.88,0.66,0.94,0.72]#完成选择
+# POWERUP_CLICK_BOX = [0.86,0.75,0.92,0.78]#点击强化
+# POWERUP_FINISH_CLICK_BOX = [0.46,0.64,0.54,0.66]#完成强化
+
+#强化 拆解
+GOTO_POWERUP_CLICK_BOX = [0.58,0.60,0.65,0.65]#前往强化界面
+CHOOSE_RETIRE_CLICK_BOX = [0.06,0.46,0.12,0.50]#选择回收拆解选项
+CHOOSE_EQUIPMENT_CLICK_BOX = [0.40,0.26,0.45,0.30]#选择拆解装备
+CHOOSE_RETIRE_CHARACTER_CLICK_BOX = [0.25,0.26,0.3,0.33]#选择拆解人形
+CHOOSE_AUTO_RETIRE_BOX = [0.88,0.67,0.98,0.74] #一键拆解
+CHOOSE_STAR3_CHARA_BOX1 = [0.874,0.314,0.978,0.387] #显示种类
+CHOOSE_STAR3_CHARA_BOX2 = [0.430,0.314,0.546,0.356] #过滤3星
+CHOOSE_STAR2_CHARA_BOX = [0.570,0.308,0.68,0.353] #过滤2星
+CHOOSE_ORDER_CLICK_BOX = [0.87,0.52,0.93,0.55]#选择升序
+EQUIPMENT_1_CLICK_BOX = [0.02,0.3,0.07,0.36]#第一行第一件装备
+EQUIPMENT_2_CLICK_BOX = [0.21,0.3,0.25,0.36]#第一行第二件装备 
+EQUIPMENT_3_CLICK_BOX = [0.33,0.3,0.37,0.36]#第一行第三件装备
+EQUIPMENT_4_CLICK_BOX = [0.45,0.3,0.50,0.36]#第一行第四件装备 
+EQUIPMENT_5_CLICK_BOX = [0.58,0.3,0.63,0.36]#第一行第五件装备
+EQUIPMENT_6_CLICK_BOX = [0.73,0.3,0.76,0.36]#第一行第六件装备
+RETIRE_DRAG_BOX = [0.40,0.60,0.60,0.60]#往上拖一行
+CHOOSE_FINISH_CLICK_BOX = [0.88,0.80,0.92,0.86]#完成选择
+RETIRE_CLICK_BOX = [0.84,0.77,0.90,0.80]#点击拆解
+CONFIRM_RETIRE_CLICK_BOX = [0.54,0.74,0.64,0.78]#确认拆解高星级
+FACTORY_RESET_BOX =[0.436,0.728,0.616,0.752] #工厂筛选重置 
+FACTORY_RESET_AFTER_BOX = [0.658,0.728,0.836,0.753] #筛选完确定
 
 #跳至主菜单/战斗菜单/工厂菜单
 NAVIGATE_BAR_CLICK_BOX = [0.15,0.10,0.18,0.15]#打开导航条
@@ -161,6 +185,24 @@ CLOSE_GAME_CLICK_BOX = [0.56,0.02,0.57,0.04]
 
 #关闭作战断开提醒
 CLOSE_TIP_CLICK_BOX = [0.45,0.62,0.55,0.67]
+
+
+#写书所需的点击和截图区域 前方塑料英语预警
+
+#写书点击区域
+CHANGE_BASE_TARGET_CLICK_BOX = [0.900,0.254,0.917,0.266] # 主界面切换内容的上箭头  点了可以切换 宿舍->前进营地->收归行动之类的 
+DATA_ROOM_CLICK_BOX = [0.589,0.280,0.622,0.319] #进入资料室
+OFFICE_DESK_CLICK_BOX = [0.146,0.753,0.173,0.789] #点击办公桌
+COMBAT_RECORD_CLICK_BOX = [0.264,0.400,0.293,0.460] #作战报告点击区域
+SPECIAL_COMBAT_RECORD_CLICK_BOX = [0.572,0.400,0.596,0.460] # 特种作战报告点击区域
+COMBAT_RECORD_CONFIRM_CLICK_BOX = [0.545,0.643,0.664,0.680] # 写书确认区域
+COMBAT_RECORD_CALCEL_CLICK_BOX = [0.372,0.643,0.478,0.680] # 写书取消区域 ***测试用
+CLOSE_OFFICE_DESK_CLICK_BOX = [0.113,0.215,0.176,0.251] # 点击 "<-" 关闭办公桌
+NEWS_CENTER_CLICK_BOX = [0.890,0.292,0.940,0.322] #点击进入情报中心
+
+#写书截图区域
+NEWS_CENTER_IMAGE_BOX = [0.885,0.292,0.953,0.322] #情报中心四个大字。 
+WATCH_IMAGE_BOX = [0.738,0.517,0.786,0.558] #表盘识别区域，如果没有出现可能是走动的基建小人挡到了导致无效点击
 
 #=============================================#
 #                                             #
@@ -406,6 +448,20 @@ def isTeamInfo():
     capImage  = getImage(TEAM_INFO_IMAGE_BOX)
     capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
     return imageCompare(initImage,capImage)
+
+#判断是否可以进入情报中心
+def isNewsCenter():
+    initImage = cv2.imread(IMAGE_PATH+"news_center.png")
+    capImage  = getImage(NEWS_CENTER_IMAGE_BOX)
+    capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
+    return imageCompare(initImage,capImage)
+#是否识别到仪表盘。是否可写的
+def isWritable():
+    initImage = cv2.imread(IMAGE_PATH+"watch_image.png")
+    capImage  = getImage(WATCH_IMAGE_BOX)
+    capImage  = cv2.cvtColor(np.asarray(capImage),cv2.COLOR_RGB2BGR)
+    return imageCompare(initImage,capImage)
+
   
 #从主菜单进入作战菜单
 def mainMenuToCombatMenu():
@@ -617,20 +673,44 @@ def restartCombat():
 #拆解
 def gotoRetire():  
     logger.debug("ACTION: 拆解人形") 
-    mouseClick(GOTO_POWERUP_CLICK_BOX,5,6)
-    mouseClick(CHOOSE_RETIRE_CLICK_BOX,1,2)
-    mouseClick(CHOOSE_RETIRE_CHARACTER_CLICK_BOX,1,2)
-    for i in range(7):
-        mouseClick(RETIRE_CHARACTER_1_CLICK_BOX,0.2,0.3)#选六个
-        mouseClick(RETIRE_CHARACTER_2_CLICK_BOX,0.2,0.3)
-        mouseClick(RETIRE_CHARACTER_3_CLICK_BOX,0.2,0.3)
-        mouseClick(RETIRE_CHARACTER_4_CLICK_BOX,0.2,0.3)
-        mouseClick(RETIRE_CHARACTER_5_CLICK_BOX,0.2,0.3)
-        mouseClick(RETIRE_CHARACTER_6_CLICK_BOX,0.2,0.3)
-        mouseDrag(RETIRE_DRAG_BOX,0,-1,1,325,0.005,1)#往上拖一行
-    mouseClick(CHOOSE_FINISH_RETIRE_CLICK_BOX,1,2)
-    mouseClick(RETIRE_CLICK_BOX,1,2)
-    mouseClick(CONFIRM_RETIRE_CLICK_BOX,3,4)  
+    # mouseClick(GOTO_POWERUP_CLICK_BOX,5,6)
+    # mouseClick(CHOOSE_RETIRE_CLICK_BOX,1,2)
+    # mouseClick(CHOOSE_RETIRE_CHARACTER_CLICK_BOX,1,2)
+    # for i in range(7):
+    #     mouseClick(RETIRE_CHARACTER_1_CLICK_BOX,0.2,0.3)#选六个
+    #     mouseClick(RETIRE_CHARACTER_2_CLICK_BOX,0.2,0.3)
+    #     mouseClick(RETIRE_CHARACTER_3_CLICK_BOX,0.2,0.3)
+    #     mouseClick(RETIRE_CHARACTER_4_CLICK_BOX,0.2,0.3)
+    #     mouseClick(RETIRE_CHARACTER_5_CLICK_BOX,0.2,0.3)
+    #     mouseClick(RETIRE_CHARACTER_6_CLICK_BOX,0.2,0.3)
+    #     mouseDrag(RETIRE_DRAG_BOX,0,-1,1,325,0.005,1)#往上拖一行
+    # mouseClick(CHOOSE_FINISH_RETIRE_CLICK_BOX,1,2)
+    # mouseClick(RETIRE_CLICK_BOX,1,2)
+    # mouseClick(CONFIRM_RETIRE_CLICK_BOX,3,4)  
+    mouseClick(GOTO_POWERUP_CLICK_BOX,6,6) #强化角色
+    #gotoFactory()
+    mouseClick(CHOOSE_RETIRE_CLICK_BOX,1,2) #回收拆解
+    mouseClick(CHOOSE_RETIRE_CHARACTER_CLICK_BOX,1,2) #选择角色
+    mouseClick(CHOOSE_STAR3_CHARA_BOX1,1,2) #显示种类
+    mouseClick(FACTORY_RESET_BOX,1,2) #重置
+    mouseClick(CHOOSE_STAR3_CHARA_BOX1,1,2) #显示种类
+    mouseClick(CHOOSE_STAR3_CHARA_BOX2,1,2) #选择3星
+    mouseClick(CHOOSE_STAR2_CHARA_BOX,1,2) #选择2星
+    mouseClick(FACTORY_RESET_AFTER_BOX,1,2) #点确定以完成筛选
+    mouseClick(CHOOSE_AUTO_RETIRE_BOX,1,2) #智能选择
+    mouseClick(CHOOSE_AUTO_RETIRE_BOX,1,2) #确定
+    mouseClick(RETIRE_CLICK_BOX,1,2) #拆解
+    mouseClick(CHOOSE_RETIRE_CHARACTER_CLICK_BOX,1,2) #选择角色
+    mouseClick(EQUIPMENT_1_CLICK_BOX,0.25,0.3)#选六个
+    mouseClick(EQUIPMENT_2_CLICK_BOX,0.25,0.3)
+    mouseClick(EQUIPMENT_3_CLICK_BOX,0.25,0.3)
+    mouseClick(EQUIPMENT_4_CLICK_BOX,0.25,0.3)
+    mouseClick(EQUIPMENT_5_CLICK_BOX,0.25,0.3)
+    mouseClick(EQUIPMENT_6_CLICK_BOX,0.25,0.3)
+    mouseClick(CHOOSE_AUTO_RETIRE_BOX,1,2) #确定
+    mouseClick(RETIRE_CLICK_BOX,1,2) #拆解
+    mouseClick(CONFIRM_RETIRE_CLICK_BOX,0.5,1)    
+    mouseClick(CONFIRM_RETIRE_CLICK_BOX,3.5,4)
 
 #强化
 def gotoPowerup(): 
@@ -683,6 +763,37 @@ def closeTip():
 def closeGame():
     mouseClick(CLOSE_GAME_CLICK_BOX,5,5)
 
+# 从主界面进入资料室写书
+def enterToDataRoomAndWriteCombatRecord(type:int):
+    logger.debug("ACTION: 写书")
+    failCount = 0
+    while not isNewsCenter():
+        mouseClick(CHANGE_BASE_TARGET_CLICK_BOX,1,2)#点击切换箭头
+        failCount += 1
+        if failCount >10 :
+            return False
+    mouseClick(NEWS_CENTER_CLICK_BOX,1,2)#进入情报中心
+    time.sleep(3)
+    mouseClick(NAVIGATE_BAR_CLICK_BOX,1,2)#打开导航条
+    mouseDrag(NAVIGATE_BAR_DRAG_BOX,1,0,2,300,0.001,1) #往右拖导航条
+    mouseClick(DATA_ROOM_CLICK_BOX,1,2)
+    time.sleep(2)
+    mouseDrag(NAVIGATE_BAR_DRAG_BOX,-1,0,2,300,0.001,1) #往左拖资料室，往右会进入宿舍
+    while not isWritable():
+        mouseClick(OFFICE_DESK_CLICK_BOX,1,2)
+        failCount += 1
+        if failCount >10 :
+            return False
+    mouseClick(WATCH_IMAGE_BOX,1,2)
+    if type == 1:
+        mouseClick(COMBAT_RECORD_CLICK_BOX,1,2)
+    else:
+        mouseClick(SPECIAL_COMBAT_RECORD_CLICK_BOX,1,2)
+    #mouseClick(COMBAT_RECORD_CALCEL_CLICK_BOX,1,2)
+    mouseClick(COMBAT_RECORD_CONFIRM_CLICK_BOX,1,2)
+    mouseClick(CLOSE_OFFICE_DESK_CLICK_BOX,1,2)
+    return time.time()    
+
 #=============================================#
 #                                             #
 #                 本程序主函数                #
@@ -699,7 +810,10 @@ consoleHandler = logging.StreamHandler()
 consoleHandler.setLevel(logging.DEBUG)  
 # 文件Handler
 currentPath = path.dirname(__file__)
-fileHandler = logging.FileHandler(currentPath+'/log.log', mode='w', encoding='UTF-8')
+log_date = time.time()
+log_localtime = time.localtime(log_date)
+log_start_time = time.strftime("%Y-%m-%d %H:%M:%S", log_localtime)
+fileHandler = logging.FileHandler(currentPath+'.log', mode='w', encoding='UTF-8')
 fileHandler.setLevel(logging.NOTSET)
 # Formatter
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -710,7 +824,6 @@ logger.addHandler(consoleHandler)
 logger.addHandler(fileHandler)
 
 if __name__ == "__main__": 
-
     preface()
     startTime = datetime.datetime.now()
     combatCount = 0
@@ -718,6 +831,12 @@ if __name__ == "__main__":
     failCount = 0
     combatPause = False
     teamFlag = False#Flag为True时选第二只，为False时选第一只
+    
+    #### 作战报告书配置区域，前方塑料英语预警
+    combat_record = True # 是否开启写书，True为开启。 请确保电池充足，目前本人还有1w电池，等电池用完了再追加判断电量不足的模块（咕咕咕）
+    combat_record_interval = 62 # 写书的时间间隔， 满级基建为60分钟，请根据自身情况修改，多2分钟为了提高容错率
+    combat_record_next_time = time.time() + combat_record_interval * 60 #下次运行的时间
+    combat_record_type = 2 #写书的类型， 1为作战报告  2为特种作战报告
 
     while True:
         if isInMap():
@@ -766,6 +885,7 @@ if __name__ == "__main__":
             if combatCount%2 == 0: #每2轮收一次后勤
                 backToMainMenu()
                 time.sleep(3)
+                continue
         elif is13_4():
             logger.debug("STATE： 13-4界面")
             start13_4()
@@ -794,12 +914,26 @@ if __name__ == "__main__":
             firstCombat = True
         elif isMainMenu():
             logger.debug("STATE： 主菜单界面")
+            time_now = time.time()
+            if combat_record and ( time_now >= combat_record_next_time): #距离上次写书时间已经超过62分钟
+                temp = enterToDataRoomAndWriteCombatRecord(combat_record_type)
+                if not temp:
+                    logger.debug("ERROR: 写书失败,重启游戏")
+                    closeGame()
+                else:
+                    temp2 = time.localtime(temp+combat_record_interval*62)
+                    next_time = time.strftime("%Y-%m-%d %H:%M:%S", temp2)
+                    logger.debug("NOTICE: 写书完成，预计下次写书时间为:"+next_time)
+                    combat_record_next_time = time.time() + combat_record_interval * 60
+                    backToMainMenu()
+                    time.sleep(2)
             mainMenuToCombatMenu()
             failCount = 0
         elif isLSupport():
             logger.debug("STATE： 后勤结束界面")
             takeLSupport()
             failCount = 0
+            continue
         elif isDesktop():
             logger.debug("STATE：模拟器桌面")
             firstCombat = True

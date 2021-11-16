@@ -1,9 +1,17 @@
 from auto13_4 import *
 
 time.sleep(0.5)
-img = getImage(NAVIGATE_FACTORY_CLICK_BOX)
+#print(isWritable())
+# enterToDataRoomAndWriteCombatRecord(2)
+# backToCombatMenu()
+# temp = getNextCombatRecordTime(62)
+# temp2 = time.localtime(temp)
+# next_time = time.strftime("%Y-%m-%d %H:%M:%S", temp2)
+# print(next_time)
+img = getImage(COMBAT_MISSION_CLICK_BOX)
 img.show()
-time.sleep(1)
-
-img = cv2.cvtColor(np.asarray(img),cv2.COLOR_RGB2BGR)
-#cv2.imwrite("initial_IMG/navigate.png", img)
+# img.save("initial_IMG/watch_image.png")
+# time.sleep(1)
+# gotoRetire()
+# img = cv2.cvtColor(np.asarray(img),cv2.COLOR_RGB2BGR)
+# cv2.imwrite("initial_IMG/L_support.png", img)
