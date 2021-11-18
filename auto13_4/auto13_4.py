@@ -620,7 +620,7 @@ def gotoRetire():
     mouseClick(GOTO_POWERUP_CLICK_BOX,5,6)
     mouseClick(CHOOSE_RETIRE_CLICK_BOX,1,2)
     mouseClick(CHOOSE_RETIRE_CHARACTER_CLICK_BOX,1,2)
-    for i in range(7):
+    for i in range(10):
         mouseClick(RETIRE_CHARACTER_1_CLICK_BOX,0.2,0.3)#选六个
         mouseClick(RETIRE_CHARACTER_2_CLICK_BOX,0.2,0.3)
         mouseClick(RETIRE_CHARACTER_3_CLICK_BOX,0.2,0.3)
